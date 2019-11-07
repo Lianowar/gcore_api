@@ -1,0 +1,1 @@
+require 'gcore_api'
