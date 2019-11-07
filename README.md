@@ -1,28 +1,32 @@
-# GcoreApiRb
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gcore_api_rb`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+# GcoreApi
+## !!!! Very alpha version !!!!
+This is wrapper of REST API for G-Core CDN service (https://docs.gcorelabs.com/cdn/)
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'gcore_api_rb'
+gem 'gcore_api', github: 'Lianowar/gcore_api'
 ```
-
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install gcore_api_rb
-
 ## Usage
 
-TODO: Write usage instructions here
+Add initializer with configuration params
+```ruby
+GcoreApi.username = <gcore_username>
+GcoreApi.password = <gcore_password>
+GcoreApi.secret_key = <secret_passphrase to encrypt tokens file>
+GcoreApi.logger = <custom_logger> # STDOUT by default
+```
+
+Call resources like
+```ruby
+GcoreApi::Users.list
+GcoreApi::Users.find(123)
+GcoreApi::Resources.list
+```
 
 ## Development
 
@@ -40,4 +44,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the GcoreApiRb project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/gcore_api_rb/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the GcoreApi project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/Lianowar/gcore_api/blob/master/CODE_OF_CONDUCT.md).
