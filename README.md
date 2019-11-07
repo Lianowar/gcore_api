@@ -6,7 +6,7 @@ This is wrapper of REST API for G-Core CDN service (https://docs.gcorelabs.com/c
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'gcore_api', github: 'Lianowar/gcore_api'
+gem 'gcore_api_rb', github: 'Lianowar/gcore_api'
 ```
 And then execute:
 
