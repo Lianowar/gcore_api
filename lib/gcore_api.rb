@@ -6,6 +6,7 @@ require "gcore_api/errors"
 require "gcore_api/resources"
 require "gcore_api/users"
 require "gcore_api/rules"
+require "gcore_api/util"
 
 module GcoreApi
   @api_base = 'https://api.gcdn.co'
