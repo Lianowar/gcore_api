@@ -3,6 +3,9 @@ require "net/http"
 require "gcore_api_rb/version"
 require "gcore_api/client"
 require "gcore_api/errors"
+require "gcore_api/resources"
+require "gcore_api/users"
+require "gcore_api/rules"
 
 module GcoreApi
   @api_base = 'https://api.gcdn.co'
