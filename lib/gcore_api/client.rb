@@ -9,12 +9,16 @@ module GcoreApi
       self.headers = {}
     end
 
-    METHODS = %w[GET POST PATCH DELETE].freeze
+    METHODS = %w[GET POST PATCH PUT DELETE].freeze
     def execute_request(path:, method:, body: nil, query: nil)
-      raise ArgumentError, "Only #{METHODS.join(',,')} are allowed" unless METHODS.include?(method.to_s.upcase)
+      raise ArgumentError, "Only #{METHODS.join(',')} are allowed" unless METHODS.include?(method.to_s.upcase)
+
+      response = send_request(method.to_s.upcase, path, body, query)
+      return response unless response.code == 401
 
       authenticate
-
+      logger.debug 'Try authenticate request'
+      logger.debug response
       send_request(method.to_s.upcase, path, body, query)
     end
 
@@ -47,14 +51,15 @@ module GcoreApi
                                          followlocation: true, headers: headers,
                                          body: body.to_json, params: query, method: method)
 
-      logger.debug "Request #{path}"
+      logger.debug "Request #{method} #{path}"
+      logger.debug body if body.present?
       connection.run
     end
 
     def refresh_tokens
       logger.debug 'refresh'
       response = send_request('POST', '/auth/jwt/refresh', { refresh: refresh_token }, nil)
-      unless response.code == 200
+      unless response.success?
         response = send_request('POST', '/auth/jwt/login', { username: GcoreApi.username, password: GcoreApi.password }, nil)
       end
       raise AuthenticateError.new(response), 'Authenticate data is invalid' unless response.code == 200
