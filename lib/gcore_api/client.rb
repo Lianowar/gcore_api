@@ -25,8 +25,6 @@ module GcoreApi
     private
 
     def authenticate
-      logger.debug 'auth'
-
       if headers.present?
         response = send_request('GET', '/clients/me', nil, nil)
         refresh_tokens if response.code == 401
@@ -35,7 +33,6 @@ module GcoreApi
       end
 
       unless tokens_exists?
-        logger.debug 'login'
         response = send_request('POST', '/auth/jwt/login', { username: GcoreApi.username, password: GcoreApi.password }, nil)
         raise AuthenticateError.new(response), 'Authenticate data is invalid' unless response.code == 200
 
@@ -52,7 +49,7 @@ module GcoreApi
                                          body: body.to_json, params: query, method: method)
 
       logger.debug "Request #{method} #{path}"
-      logger.debug body if body.present?
+      logger.debug "Response body #{body}" if body.present?
       connection.run
     end
 
